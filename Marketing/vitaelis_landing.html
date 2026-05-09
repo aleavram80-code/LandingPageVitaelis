@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VITAELIS — La Scienza del Benessere</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #F5EDD8;
+      --cream-lt: #FAF6EE;
+      --cream-d:  #EDE0C8;
+      --brown:    #2C1810;
+      --brown-m:  #5C3D28;
+      --terra:    #9B6B3A;
+      --terra-lt: #C49A6C;
+      --muted:    #7A6550;
+      --card-bg:  #EDE4D4;
+      --white:    #FDFAF5;
+      --border:   #D9CEBC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--brown);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3.5rem;
+      background: rgba(245,237,216,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img {
+      height: 28px; width: auto; display: block;
+    }
+    .nav-links { display: flex; gap: 2.2rem; }
+    .nav-links a {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--brown); }
+    .nav-cta {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--brown);
+      text-decoration: none; padding: 0.5rem 1.4rem;
+      border: 1px solid var(--brown); border-radius: 50px;
+      transition: all 0.25s;
+    }
+    .nav-cta:hover { background: var(--brown); color: var(--cream); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img-wrap {
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 60% center;
+      display: block;
+    }
+    /* gradient overlay */
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(245,237,216,0.92) 0%,
+        rgba(245,237,216,0.70) 40%,
+        rgba(245,237,216,0.0) 62%
+      );
+      pointer-events: none;
+    }
+    .hero-main {
+      position: relative; z-index: 2;
+      display: flex; align-items: center;
+      padding: 4rem 3.5rem;
+      flex: 1;
+    }
+    .hero-headline {
+      position: relative; z-index: 2; max-width: 44%;
+    }
+    .hero-tag {
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--terra); font-weight: 400;
+      display: block; margin-bottom: 1.2rem;
+    }
+    .hero-headline h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.8vw, 4rem);
+      font-weight: 300; line-height: 1.0;
+      color: var(--brown); letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    .hero-headline h1 em {
+      font-style: italic; font-weight: 300;
+      color: var(--terra);
+    }
+    .hero-actions {
+      display: flex; align-items: center; gap: 1.2rem;
+      margin-top: 2.2rem; flex-wrap: wrap;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--brown);
+      text-decoration: none; padding: 0.8rem 2rem;
+      border: 1px solid var(--brown); border-radius: 50px;
+      background: rgba(245,237,216,0.6);
+      backdrop-filter: blur(4px);
+      transition: all 0.25s;
+    }
+    .hero-cta:hover { background: var(--brown); color: var(--cream); }
+    .hero-cta-ghost {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border); padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .hero-cta-ghost:hover { color: var(--brown); }
+    .hero-desc-block {
+      margin-top: 1.8rem; max-width: 340px;
+      font-size: 0.85rem; color: var(--brown-m);
+      line-height: 1.75; opacity: 0.85;
+    }
+    .hero-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3.5rem;
+      border-top: 1px solid var(--border);
+      position: relative; z-index: 2;
+      background: rgba(245,237,216,0.75);
+      backdrop-filter: blur(6px);
+    }
+    .hero-stats { display: flex; gap: 3rem; }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400; color: var(--brown);
+      display: block; line-height: 1;
+    }
+    .stat-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .hero-scroll {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); display: flex; align-items: center; gap: 0.5rem;
+    }
+    .scroll-line { width: 40px; height: 1px; background: var(--border); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 3.5rem; }
+    .container { max-width: 1140px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--terra); font-weight: 400; display: block; margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300; line-height: 1.1;
+      color: var(--brown); letter-spacing: -0.01em;
+    }
+    h2 em { font-style: italic; color: var(--terra); }
+    .body-text {
+      font-size: 0.9rem; color: var(--muted);
+      line-height: 1.85; max-width: 480px;
+    }
+
+    /* ── PDF SECTION ── */
+    .pdf-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pdf-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+    .pdf-cover {
+      background: var(--brown);
+      border-radius: 4px;
+      padding: 3.5rem 3rem;
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .pdf-cover::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--terra-lt);
+    }
+    .pdf-cover-label {
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terra-lt); margin-bottom: 2rem;
+    }
+    .pdf-cover h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300; line-height: 1.15;
+      color: var(--cream);
+    }
+    .pdf-cover h3 em { font-style: italic; color: var(--terra-lt); }
+    .pdf-cover p { font-size: 0.78rem; color: rgba(245,237,216,0.55); line-height: 1.65; margin-top: 1rem; }
+    .pdf-badge-cover {
+      display: inline-block; border: 1px solid var(--terra-lt);
+      color: var(--terra-lt); font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 50px; margin-top: 2rem;
+      align-self: flex-start;
+    }
+    .pdf-deco {
+      position: absolute; bottom: -40px; right: -40px;
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 1px solid rgba(196,154,108,0.2);
+    }
+    .pdf-deco::after {
+      content: ''; position: absolute;
+      top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border-radius: 50%; border: 1px solid rgba(196,154,108,0.15);
+    }
+    .chapters-list { display: flex; flex-direction: column; gap: 0; }
+    .chapter-row {
+      display: flex; align-items: flex-start; gap: 1.5rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.25s;
+      cursor: default;
+    }
+    .chapter-row:first-child { border-top: 1px solid var(--border); }
+    .chapter-row:hover { padding-left: 8px; }
+    .ch-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem; color: var(--terra); font-weight: 400;
+      letter-spacing: 0.1em; min-width: 24px; padding-top: 3px;
+    }
+    .ch-content h4 {
+      font-size: 0.95rem; font-weight: 500; color: var(--brown);
+      margin-bottom: 0.25rem;
+    }
+    .ch-content p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── CHI SIAMO ── */
+    .about-section { background: var(--cream-d); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+      aspect-ratio: 4/5;
+      background: var(--card-bg);
+      border-radius: 4px; overflow: hidden;
+    }
+    .about-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .about-image-badge {
+      position: absolute; bottom: 2rem; left: 2rem;
+      background: var(--brown); color: var(--cream);
+      padding: 1rem 1.4rem; border-radius: 4px;
+    }
+    .about-image-badge p { font-size: 0.7rem; letter-spacing: 0.08em; opacity: 0.7; }
+    .about-image-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; display: block;
+    }
+    .about-content { display: flex; flex-direction: column; gap: 2rem; }
+    .founder-item {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px; background: var(--white);
+      transition: border-color 0.25s;
+    }
+    .founder-item:hover { border-color: var(--terra); }
+    .founder-initial {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--terra-lt); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .founder-item h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 400; color: var(--brown); margin-bottom: 0.15rem;
+    }
+    .founder-role { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.7rem; }
+    .founder-item p { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .mission-quote {
+      padding: 1.8rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .mission-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-style: italic; font-weight: 300;
+      color: var(--brown); line-height: 1.6;
+    }
+    .mission-quote cite {
+      display: block; margin-top: 0.8rem;
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--terra);
+      font-style: normal;
+    }
+
+    /* ── PRODOTTI ── */
+    .products-section { background: var(--white); }
+    .products-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3.5rem;
+    }
+    .see-all {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--terra); text-decoration: none;
+      border-bottom: 1px solid var(--terra); padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: var(--cream);
+      border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-6px); border-color: var(--terra); box-shadow: 0 16px 40px rgba(44,24,16,0.08); }
+    .product-img {
+      background: var(--card-bg);
+      aspect-ratio: 1; display: flex;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.4s;
+    }
+    .product-card:hover .product-img img { transform: scale(1.06); }
+    .product-info { padding: 1rem 1.1rem 1.2rem; }
+    .product-cat {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 0.3rem;
+    }
+    .product-info h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 400; color: var(--brown); margin-bottom: 0.2rem;
+    }
+    .product-info p { font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── FORM ── */
+    .form-section { background: var(--cream); }
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7rem; align-items: start;
+    }
+    .form-left { position: sticky; top: 100px; }
+    .form-left h2 { margin-bottom: 1.2rem; }
+    .form-left .body-text { margin-bottom: 2.5rem; }
+    .benefits { display: flex; flex-direction: column; gap: 1rem; }
+    .benefit-row {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.85rem; color: var(--muted);
+      padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+    }
+    .benefit-row:last-child { border-bottom: none; }
+    .b-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--terra); flex-shrink: 0;
+    }
+    .form-right { position: sticky; top: 100px; }
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 3rem;
+    }
+    .form-card-label {
+      font-size: 0.65rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--terra);
+      display: block; margin-bottom: 0.8rem;
+    }
+    .form-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; color: var(--brown);
+      margin-bottom: 0.4rem; line-height: 1.2;
+    }
+    .form-card h3 em { font-style: italic; color: var(--terra); }
+    .form-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+    .field { margin-bottom: 1.2rem; }
+    .field label {
+      display: block; font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .field input {
+      width: 100%; padding: 0.85rem 0;
+      border: none; border-bottom: 1.5px solid var(--border);
+      background: transparent; font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; color: var(--brown); font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+      border-radius: 0;
+    }
+    .field input:focus { border-bottom-color: var(--terra); }
+    .field input::placeholder { color: var(--border); }
+    .divider { height: 1px; background: var(--border); margin: 1.8rem 0; }
+    .checks { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .check-label {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      cursor: pointer;
+    }
+    .check-label input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0;
+      accent-color: var(--terra); margin-top: 2px; cursor: pointer;
+      border-radius: 0;
+    }
+    .check-label span { font-size: 0.77rem; color: var(--muted); line-height: 1.55; }
+    .check-label a { color: var(--brown); }
+    .btn-submit {
+      width: 100%; padding: 1rem;
+      background: var(--brown); color: var(--cream);
+      border: none; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .btn-submit:hover { background: var(--terra); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(155,107,58,0.25); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-footnote { font-size: 0.68rem; color: var(--border); text-align: center; margin-top: 0.8rem; }
+    .success-block {
+      display: none; text-align: center; padding: 3rem 2rem;
+    }
+    .success-block .s-icon {
+      font-size: 2.5rem; margin-bottom: 1.2rem; display: block;
+    }
+    .success-block h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 300; color: var(--brown); margin-bottom: 0.5rem;
+    }
+    .success-block p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown); color: rgba(245,237,216,0.6);
+      padding: 4rem 3.5rem 2rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(245,237,216,0.1);
+    }
+    .footer-logo img {
+      height: 26px; filter: brightness(0) invert(1) opacity(0.8);
+      margin-bottom: 1rem; display: block;
+    }
+    .footer-logo p { font-size: 0.8rem; line-height: 1.75; max-width: 260px; }
+    .social-row { display: flex; gap: 0.8rem; margin-top: 1.4rem; }
+    .soc {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(245,237,216,0.2);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 500;
+      color: rgba(245,237,216,0.5); text-decoration: none;
+      transition: all 0.2s;
+    }
+    .soc:hover { border-color: var(--terra-lt); color: var(--terra-lt); }
+    .footer-col h5 {
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terra-lt); margin-bottom: 1.2rem; font-weight: 500;
+    }
+    .footer-col a {
+      display: block; font-size: 0.78rem;
+      color: rgba(245,237,216,0.45); text-decoration: none;
+      margin-bottom: 0.55rem; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: rgba(245,237,216,0.9); }
+    .footer-bottom {
+      padding-top: 1.8rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { font-size: 0.7rem; line-height: 1.6; }
+    .legal-links { display: flex; gap: 1.8rem; }
+    .legal-links a { font-size: 0.7rem; color: rgba(245,237,216,0.3); text-decoration: none; transition: color 0.2s; }
+    .legal-links a:hover { color: rgba(245,237,216,0.7); }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .hero-main { padding: 2rem 1.5rem; flex-direction: column; }
+      .hero-image { position: relative; left: auto; top: auto; transform: none; width: 80%; margin: 2rem auto; }
+      .hero-bottom { padding: 1rem 1.5rem; }
+      .hero-stats { gap: 1.5rem; }
+      .pdf-inner, .about-grid, .form-grid, .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-left { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" style="text-decoration:none;display:flex;align-items:center;" class="nav-logo-wrap">
+      <img src="logo-02.png" alt="Vitaelis" style="height:28px;" />
+    </a>
+    <div class="nav-links">
+      <a href="#pdf-preview">La Guida</a>
+      <a href="#about">Brand</a>
+      <a href="#products">Prodotti</a>
+    </div>
+    <a href="#form" class="nav-cta">Scarica Gratis</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-img-wrap">
+      <img src="6x3.png" alt="Vitaelis — Linea Integratori" />
+    </div>
+    <div class="hero-main">
+      <div class="hero-headline">
+        <span class="hero-tag">Accesso Anticipato — Guida PDF Gratuita</span>
+        <h1>
+          LA<br/>
+          <em>SCIENZA</em><br/>
+          DEL<br/>BENESSERE
+        </h1>
+        <p class="hero-desc-block">Formulazioni nate da innovazione continua, ricerca rigorosa e totale trasparenza — otto integratori pensati per migliorare ciò che conta davvero.</p>
+        <div class="hero-actions">
+          <a href="#form" class="hero-cta">Scarica la Guida Gratis →</a>
+          <a href="#pdf-preview" class="hero-cta-ghost">Scopri di più</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">8</span>
+          <span class="stat-label">Integratori</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Tracciabili</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">0</span>
+          <span class="stat-label">Compromessi</span>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        Scorri per scoprire
+      </div>
+    </div>
+  </section>
+
+  <!-- PDF PREVIEW -->
+  <section class="pdf-section" id="pdf-preview">
+    <div class="container">
+      <div class="pdf-inner">
+        <div class="pdf-cover reveal">
+          <div>
+            <div class="pdf-cover-label">PDF Gratuito · VITAELIS 2025</div>
+            <h3>Il tuo <em>Benessere</em> Quotidiano</h3>
+            <p>Come scegliere l'integratore giusto per le tue reali esigenze — una guida scritta con rigore scientifico e linguaggio accessibile.</p>
+            <span class="pdf-badge-cover">Download Gratuito</span>
+          </div>
+          <div style="font-size:0.7rem;color:rgba(245,237,216,0.3);letter-spacing:0.1em;">Guida completa · Aggiornata 2025</div>
+          <div class="pdf-deco"></div>
+        </div>
+
+        <div class="reveal">
+          <span class="section-label">Cosa trovi nel PDF</span>
+          <h2 style="margin-bottom:2.5rem;">Quattro capitoli, <em>una sola bussola</em></h2>
+          <div class="chapters-list">
+            <div class="chapter-row">
+              <div class="ch-num">01</div>
+              <div class="ch-content">
+                <h4>Come leggere un'etichetta</h4>
+                <p>Ingredienti, dosaggi, claim — cosa significa davvero ciò che è scritto sulla confezione.</p>
+              </div>
+            </div>
+            <div class="chapter-row">
+              <div class="ch-num">02</div>
+              <div class="ch-content">
+                <h4>I principi attivi che funzionano</h4>
+                <p>Panoramica scientifica sui principi più studiati e le evidenze reali dietro di loro.</p>
+              </div>
+            </div>
+            <div class="chapter-row">
+              <div class="ch-num">03</div>
+              <div class="ch-content">
+                <h4>Scegliere in base ai propri obiettivi</h4>
+                <p>Energia, difese immunitarie, pelle, digestione — come abbinare il prodotto giusto al bisogno reale.</p>
+              </div>
+            </div>
+            <div class="chapter-row">
+              <div class="ch-num">04</div>
+              <div class="ch-content">
+                <h4>Cosa evitare sul mercato</h4>
+                <p>Segnali d'allarme, promesse da ignorare e come riconoscere un brand affidabile.</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <a href="#form" class="hero-cta">Scarica Gratis →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrap reveal">
+          <img src="visual.png" alt="VITAELIS — Prodotti" style="object-position:center top;" />
+          <div class="about-image-badge">
+            <p>Fondato da</p>
+            <strong>Ricercatori</strong>
+          </div>
+        </div>
+        <div class="about-content reveal">
+          <div>
+            <span class="section-label">Chi siamo</span>
+            <h2 style="margin-bottom:1.2rem;">Nati dalla ricerca, <em>non dal marketing</em></h2>
+            <p class="body-text" style="margin-bottom:2.5rem;">VITAELIS è il progetto di due ricercatori che hanno deciso di portare la scienza del benessere dove deve stare — nelle mani di tutti.</p>
+          </div>
+          <div class="founder-item">
+            <div class="founder-initial">M</div>
+            <h4>Marco Bianchi</h4>
+            <div class="founder-role">Co-Fondatore · Ricerca & Sviluppo</div>
+            <p>Anni di ricerca nel campo della nutraceutica e della biochimica applicata al benessere umano. Ha guidato lo sviluppo di ogni formulazione VITAELIS.</p>
+          </div>
+          <div class="founder-item" style="margin-top:1rem;">
+            <div class="founder-initial">S</div>
+            <h4>Sofia Conti</h4>
+            <div class="founder-role">Co-Fondatrice · Innovazione & Strategia</div>
+            <p>Background in scienze della nutrizione e management dell'innovazione. Ha costruito il modello etico di VITAELIS: filiera certificata, ingredienti tracciabili, comunicazione onesta.</p>
+          </div>
+          <div class="mission-quote">
+            <blockquote>"Rendere il benessere quotidiano reale e concreto per tutti, combinando ingredienti puri, processi trasparenti e innovazione costante."</blockquote>
+            <cite>— Mission VITAELIS</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODOTTI -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="products-header reveal">
+        <div>
+          <span class="section-label">La Linea</span>
+          <h2>Otto integratori, <em>una sola promessa</em></h2>
+        </div>
+        <a href="#form" class="see-all">Scopri tutto</a>
+      </div>
+      <div class="products-grid">
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/dermo-age.png" alt="Dermo-Age" /></div>
+          <div class="product-info">
+            <div class="product-cat">Pelle</div>
+            <h4>Dermo-Age</h4>
+            <p>Collagene marino e acido ialuronico</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/uro-defence.png" alt="Uro-Defence" /></div>
+          <div class="product-info">
+            <div class="product-cat">Benessere</div>
+            <h4>Uro-Defence</h4>
+            <p>D-Mannosio e Uva Ursina</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/detox.png" alt="Detox Pure" /></div>
+          <div class="product-info">
+            <div class="product-cat">Detox</div>
+            <h4>Detox Pure</h4>
+            <p>Tarassaco e carciofo</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/slim-control.png" alt="Slim Control" /></div>
+          <div class="product-info">
+            <div class="product-cat">Metabolismo</div>
+            <h4>Slim Control</h4>
+            <p>Caffè verde e cromo picolinato</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/energy.png" alt="Energy Drink" /></div>
+          <div class="product-info">
+            <div class="product-cat">Energia</div>
+            <h4>Energy Drink</h4>
+            <p>Creatina, magnesio e ginseng</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/biotic.png" alt="Biotic Plus" /></div>
+          <div class="product-info">
+            <div class="product-cat">Intestino</div>
+            <h4>Biotic Plus</h4>
+            <p>Probiotici selezionati e vitamina B6</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/capelli-lux.png" alt="Capelli Lux" /></div>
+          <div class="product-info">
+            <div class="product-cat">Capelli</div>
+            <h4>Capelli Lux</h4>
+            <p>Biotina e estratto di miglio</p>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-img"><img src="prodotti/osteo.png" alt="Osteo-K2" /></div>
+          <div class="product-info">
+            <div class="product-cat">Ossa</div>
+            <h4>Osteo-K2</h4>
+            <p>Vitamina D3 e K2</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section" id="form">
+    <div class="container">
+      <div class="form-grid">
+        <div class="form-left reveal">
+          <span class="section-label">Accesso Anticipato</span>
+          <h2 style="margin-bottom:1.2rem;">Il tuo primo passo verso il benessere <em>che funziona davvero.</em></h2>
+          <p class="body-text" style="margin-bottom:2.5rem;">Lascia la tua email e ricevi immediatamente la guida PDF gratuita. Sarai anche tra i primi a scoprire la linea VITAELIS al lancio.</p>
+          <div class="benefits">
+            <div class="benefit-row"><div class="b-dot"></div>Guida PDF gratuita — scaricabile subito</div>
+            <div class="benefit-row"><div class="b-dot"></div>Accesso anticipato al lancio della linea</div>
+            <div class="benefit-row"><div class="b-dot"></div>Contenuti esclusivi pre-lancio</div>
+            <div class="benefit-row"><div class="b-dot"></div>Nessuno spam — solo valore reale</div>
+          </div>
+        </div>
+
+        <div class="form-right reveal">
+          <div class="form-card">
+            <div id="form-inner">
+              <span class="form-card-label">PDF Gratuito</span>
+              <h3>La scienza del benessere, <em>in un PDF.</em></h3>
+              <p class="form-sub">Compila il form e ricevi subito la guida gratuita nella tua casella email.</p>
+              <form id="lead-form" novalidate>
+                <div class="field">
+                  <label for="nome">Nome</label>
+                  <input type="text" id="nome" name="nome" placeholder="Il tuo nome" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="la-tua@email.it" required />
+                </div>
+                <div class="divider"></div>
+                <div class="checks">
+                  <label class="check-label">
+                    <input type="checkbox" id="privacy" required />
+                    <span>Ho letto e accetto la <a href="#privacy-policy">Privacy Policy</a> e il trattamento dei miei dati per ricevere la guida. *</span>
+                  </label>
+                  <label class="check-label">
+                    <input type="checkbox" id="marketing" />
+                    <span>Acconsento a ricevere comunicazioni di marketing da VITAELIS (novità, offerte, contenuti esclusivi). Opzionale.</span>
+                  </label>
+                </div>
+                <button type="submit" class="btn-submit" id="submit-btn">
+                  Accedi in Anteprima + Scarica il PDF
+                </button>
+                <p class="form-footnote">* Campo obbligatorio. Puoi revocare il consenso in qualsiasi momento.</p>
+              </form>
+            </div>
+            <div class="success-block" id="success-block">
+              <span class="s-icon">✦</span>
+              <h4>Benvenuto in VITAELIS</h4>
+              <p>Controlla la tua email — la guida è in arrivo.<br/>Sarai tra i primi a scoprire la nostra linea.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="privacy-policy">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <img src="logo-02.png" alt="Vitaelis" />
+          <p>Integratori scientificamente formulati, ingredienti tracciabili, zero compromessi sulla qualità. Un progetto nato dalla ricerca per il benessere di tutti.</p>
+          <div class="social-row">
+            <a href="#" class="soc">IG</a>
+            <a href="#" class="soc">FB</a>
+            <a href="#" class="soc">TK</a>
+            <a href="#" class="soc">LI</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Legale</h5>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Termini e Condizioni</a>
+          <a href="#">Gestisci Consensi</a>
+        </div>
+        <div class="footer-col">
+          <h5>Contatti</h5>
+          <a href="https://www.vitaelis.it">www.vitaelis.it</a>
+          <a href="mailto:info@vitaelis.it">info@vitaelis.it</a>
+          <a href="#">Segnalazioni</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 VITAELIS S.r.l. — P.IVA 12345678901 — Tutti i diritti riservati.<br/>
+        Gli integratori alimentari non sostituiscono una dieta variata ed equilibrata e uno stile di vita sano.</p>
+        <div class="legal-links">
+          <a href="#">Privacy</a>
+          <a href="#">Cookie</a>
+          <a href="#">Note Legali</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 90);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => obs.observe(el));
+
+    // Form
+    const form = document.getElementById('lead-form');
+    const btn = document.getElementById('submit-btn');
+    const inner = document.getElementById('form-inner');
+    const success = document.getElementById('success-block');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const privacy = document.getElementById('privacy').checked;
+      if (!nome) { alert('Inserisci il tuo nome.'); return; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Inserisci un\'email valida.'); return; }
+      if (!privacy) { alert('Devi accettare la Privacy Policy per procedere.'); return; }
+      btn.disabled = true;
+      btn.textContent = 'Invio in corso...';
+      setTimeout(() => { inner.style.display = 'none'; success.style.display = 'block'; }, 1000);
+    });
+
+    // Nav shadow
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').style.boxShadow = window.scrollY > 30 ? '0 2px 20px rgba(44,24,16,0.08)' : 'none';
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>
